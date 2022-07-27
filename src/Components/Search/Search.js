@@ -13,6 +13,7 @@ const Main = styled.main`
   margin: auto;
   border-radius: 5px;
   height: 65px;
+  z-index: 500;
 
   @media (min-width: 780px) {
     width: 780px;
