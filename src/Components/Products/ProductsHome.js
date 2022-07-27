@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { FcLikePlaceholder } from "react-icons/fc";
 
 const SectionOne = styled.section`
   display: flex;
@@ -13,6 +14,7 @@ const SectionOne = styled.section`
   background: -webkit-linear-gradient(to top, #ffffff, #ece9e6);
   background: linear-gradient(to top, #ffffff, #ece9e6);
   box-shadow: 0px 0px 10px 0px rgba(5, 5, 5, 0.267);
+  position: relative;
 `;
 
 const Img = styled.img`
@@ -35,6 +37,19 @@ const Price = styled.p`
   margin-top: 10px;
   color: green;
 `;
+
+const NoLike = styled(FcLikePlaceholder)`
+  width: 45px;
+  height: 45px;
+  padding: 5px;
+  border-radius: 100%;
+  background-color: white;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.418);
+  position: absolute;
+  top: 10px;
+  right: 10px;
+`;
+
 const ProductsHome = ({ name, img, price }) => {
   return (
     <>
@@ -44,6 +59,7 @@ const ProductsHome = ({ name, img, price }) => {
           <Name>{name}</Name>
           <Price>${price}</Price>
         </SectionTwo>
+        <NoLike />
       </SectionOne>
     </>
   );
