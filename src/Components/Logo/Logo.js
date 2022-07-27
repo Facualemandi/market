@@ -9,7 +9,6 @@ const Section = styled.section`
 `;
 
 const SectionDesktop = styled.section`
-  border: 1px solid red;
   @media (min-width: 780px) {
     width: 780px;
     display: flex;

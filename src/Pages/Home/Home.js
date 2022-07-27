@@ -1,11 +1,14 @@
-import React from 'react'
-import Logo from '../../Components/Logo/Logo'
+import React from "react";
+import Logo from "../../Components/Logo/Logo";
+import Search from "../../Components/Search/Search";
 
 const Home = () => {
-    
   return (
-     <Logo/>
-  )
-}
+    <>
+      <Logo />
+      <Search />
+    </>
+  );
+};
 
-export default Home
+export default Home;
