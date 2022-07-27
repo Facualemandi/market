@@ -63,6 +63,7 @@ const Logo = () => {
           <Img alt="Alfareria" src={LogoA} />
           <P>Encontra todos los productos de alfarería</P>
         </SectionDesktop>
+      
       </Section>
     </>
   );
