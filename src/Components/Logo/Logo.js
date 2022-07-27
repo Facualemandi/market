@@ -6,7 +6,7 @@ import Hamburger from "hamburger-react";
 const Section = styled.section`
   width: 100vw;
   height: auto;
-  background-color: #ffedd5;
+  background-color: #ece9e6;
   position: relative;
 `;
 
@@ -78,14 +78,14 @@ const SectionUl = styled.section`
   top: 0px;
   right: 0px;
   transform: ${({ value }) => (value ? "translateX(-0%)" : "translateX(100%)")};
-  background-color: #ffe4c0;
+  background-color: #e1dcd7;
   border-bottom-left-radius: 250px;
 
   @media (min-width: 780px) {
     position: absolute;
     transform: none;
     height: 130px;
-    background-color: #ffedd5;
+    background-color: #ece9e6;
     border-radius: 0px;
     transition: 0ms;
     display: flex;
