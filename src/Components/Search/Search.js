@@ -12,7 +12,6 @@ const Main = styled.main`
   width: 90vw;
   margin: auto;
   border-radius: 5px;
-  height: 65px;
   z-index: 500;
 
   @media (min-width: 780px) {
