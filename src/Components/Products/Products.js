@@ -37,6 +37,7 @@ const Products = () => {
               name={el.name}
               price={el.price}
               img={el.img}
+              el={el}
             />
           ))}
         </Main>

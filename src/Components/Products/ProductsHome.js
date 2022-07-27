@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { FcLikePlaceholder } from "react-icons/fc";
+import { useTheContext } from "../../Context/context";
 
 const SectionOne = styled.section`
   display: flex;
@@ -50,7 +51,9 @@ const NoLike = styled(FcLikePlaceholder)`
   right: 10px;
 `;
 
-const ProductsHome = ({ name, img, price }) => {
+const ProductsHome = ({ name, img, price, el }) => {
+  const { likeProduct } = useTheContext();
+
   return (
     <>
       <SectionOne>
@@ -59,7 +62,7 @@ const ProductsHome = ({ name, img, price }) => {
           <Name>{name}</Name>
           <Price>${price}</Price>
         </SectionTwo>
-        <NoLike />
+        <NoLike onClick={() => likeProduct(el)} />
       </SectionOne>
     </>
   );
