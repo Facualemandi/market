@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import { useProducts } from "../../Hooks/useProducts";
 import Loader from "../Loader/Loader";
 import ProductsHome from "./ProductsHome";
@@ -32,7 +33,7 @@ const Products = () => {
 
   useEffect(() => {
     const getData = () => {
-      console.log(localP);
+
       if (!localP) {
         localStorage.setItem("Products", JSON.stringify(products));
       } else if (products.length > 0 && parseLocal.length === 0) {
@@ -50,6 +51,22 @@ const Products = () => {
     const newObject = [...data];
     newObject[indexElement].like = true;
     saveLike(newObject);
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: 'success',
+      title: 'Signed in successfully'
+    })
   };
 
   const saveLike = (newObject) => {
