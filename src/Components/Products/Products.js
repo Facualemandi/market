@@ -25,28 +25,29 @@ const Main = styled.main`
 `;
 const Products = () => {
   const { products, loader } = useProducts();
-
-  localStorage.setItem("Products", JSON.stringify(products));
-  const getProducts = localStorage.getItem("Products");
-  const parseProducts = JSON.parse(getProducts);
-
-  const [getProduct, setGetProduct] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    setGetProduct(products);
+    const getData = () => {
+      localStorage.setItem("Products", JSON.stringify(products));
+      const getProducts = localStorage.getItem("Products");
+      const parseProducts = JSON.parse(getProducts);
+      setData(parseProducts);
+    };
+    getData();
   }, [products]);
+
+  const likeProduct = (element) => {
+    const indexElement = data.findIndex((el) => el.id === element.id);
+    const newObject = [...data];
+    newObject[indexElement].like = true;
+    saveLike(newObject);
+  };
 
   const saveLike = (newObject) => {
     const stringLikes = JSON.stringify(newObject);
     localStorage.setItem("Products", stringLikes);
-    setGetProduct(newObject);
-  };
-
-  const likeProduct = (element) => {
-    const indexElement = getProduct.findIndex((el) => el.id === element.id);
-    const newObject = [...getProduct];
-    newObject[indexElement].like = true;
-    saveLike(newObject);
+    setData(newObject);
   };
 
   return (
@@ -54,7 +55,7 @@ const Products = () => {
       {loader && <Loader />}
       {!loader && (
         <Main>
-          {getProduct.map((el) => (
+          {data.map((el) => (
             <ProductsHome
               key={el.key}
               name={el.name}
@@ -72,3 +73,16 @@ const Products = () => {
 };
 
 export default Products;
+
+// const saveLike = (newObject) => {
+//   const stringLikes = JSON.stringify(newObject);
+//   localStorage.setItem("Products", stringLikes);
+//   setGetProduct(newObject);
+// };
+
+// const likeProduct = (element) => {
+//   const indexElement = parseProducts.findIndex((el) => el.id === element.id);
+//   const newObject = [...getProduct];
+//   newObject[indexElement].like = true;
+//   saveLike(newObject);
+// };

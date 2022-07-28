@@ -1,14 +1,9 @@
 import { Route, Routes } from "react-router-dom";
+import Likes from "./Components/Likes/Likes";
 import { ContextProvider } from "./Context/context";
-
-
 import Home from "./Pages/Home/Home";
-import Likes from "./Pages/Likes/Likes";
 
 function App() {
-
-  
-   
   return (
     <>
       <ContextProvider>
