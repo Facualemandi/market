@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import NavButtom from "../../Components/NavButtom/NavButtom";
 import { FcDislike } from "react-icons/fc";
+import { NavLink } from "react-router-dom";
 
 const Img = styled.img`
   width: 150px;
@@ -103,7 +104,9 @@ const Likes = () => {
             </SectionProducts>
           ))}
       </Main>
-
+      <NavLink to={"/"}>
+        <p>asdbnsakjdbsad</p>
+      </NavLink>
       <NavButtom />
     </>
   );

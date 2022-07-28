@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useProducts } from "../../Hooks/useProducts";
 import Loader from "../Loader/Loader";
@@ -26,18 +26,43 @@ const Main = styled.main`
 const Products = () => {
   const { products, loader } = useProducts();
 
+  localStorage.setItem("Products", JSON.stringify(products));
+  const getProducts = localStorage.getItem("Products");
+  const parseProducts = JSON.parse(getProducts);
+
+  const [getProduct, setGetProduct] = useState([]);
+
+  useEffect(() => {
+    setGetProduct(products);
+  }, [products]);
+
+  const saveLike = (newObject) => {
+    const stringLikes = JSON.stringify(newObject);
+    localStorage.setItem("Products", stringLikes);
+    setGetProduct(newObject);
+  };
+
+  const likeProduct = (element) => {
+    const indexElement = getProduct.findIndex((el) => el.id === element.id);
+    const newObject = [...getProduct];
+    newObject[indexElement].like = true;
+    saveLike(newObject);
+  };
+
   return (
     <>
       {loader && <Loader />}
       {!loader && (
         <Main>
-          {products.map((el) => (
+          {getProduct.map((el) => (
             <ProductsHome
               key={el.key}
               name={el.name}
               price={el.price}
               img={el.img}
               el={el}
+              like={el.like}
+              likeProduct={likeProduct}
             />
           ))}
         </Main>
