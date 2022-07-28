@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { useProducts } from "../Hooks/useProducts";
 
 const getContext = createContext();
 
@@ -10,42 +11,60 @@ export const useTheContext = () => {
 };
 
 export function ContextProvider({ children }) {
+  const { products, loader } = useProducts();
+  const [data, setData] = useState([]);
   const [likes, setLikes] = useState([]);
 
-  const likeProduct = (el) => {
-    el.like = true;
-    const findLike = likes.find((object) => object.id === el.id);
-
-    if (findLike) {
-      return;
-    } else {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top-end",
-        showConfirmButton: false,
-        timer: 1000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener("mouseenter", Swal.stopTimer);
-          toast.addEventListener("mouseleave", Swal.resumeTimer);
-        },
-      });
-
-      Toast.fire({
-        icon: "success",
-        title: "Producto agregado a favoritos",
-      });
-      setLikes([...likes, el]);
-      localStorage.setItem("Likes", JSON.stringify([...likes, el]));
-    }
-  };
+  const localP = localStorage.getItem("Products");
+  const parseLocal = JSON.parse(localP);
 
   useEffect(() => {
-    console.log(likes);
-  }, [likes]);
+    const getData = () => {
+      if (!localP) {
+        localStorage.setItem("Products", JSON.stringify(products));
+      } else if (products.length > 0 && parseLocal.length === 0) {
+        localStorage.setItem("Products", JSON.stringify(products));
+      }
+      const getProducts = localStorage.getItem("Products");
+      const parseProducts = JSON.parse(getProducts);
+      setData(parseProducts);
+    };
+    getData();
+  }, [products, localP]);
+
+  const likeProduct = (e, element) => {
+    e.preventDefault();
+    const indexElement = data.findIndex((el) => el.id === element.id);
+    const newObject = [...data];
+    newObject[indexElement].like = true;
+    setLikes([...likes, element]);
+    saveLike(newObject);
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    Toast.fire({
+      icon: "success",
+      title: "Signed in successfully",
+    });
+  };
+
+  const saveLike = (newObject) => {
+    const stringLikes = JSON.stringify(newObject);
+    localStorage.setItem("Products", stringLikes);
+    setData(newObject);
+  };
 
   return (
-    <getContext.Provider value={{ likeProduct }}>
+    <getContext.Provider value={{ likeProduct, loader, data, likes }}>
       {children}
     </getContext.Provider>
   );

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { FcLikePlaceholder } from "react-icons/fc";
 import { FcLike } from "react-icons/fc";
+import { useTheContext } from "../../Context/context";
 
 const SectionOne = styled.section`
   display: flex;
@@ -34,7 +35,7 @@ const Name = styled.p`
 `;
 const Price = styled.p`
   font-family: "Montserrat", sans-serif;
-  font-size: 24px;
+  font-size: 18px;
   margin-top: 10px;
   color: green;
 `;
@@ -63,7 +64,8 @@ const Like = styled(FcLike)`
   right: 10px;
 `;
 
-const ProductsHome = ({ name, img, price, el, like, likeProduct }) => {
+const ProductsHome = ({ name, img, price, el, like }) => {
+  const { likeProduct } = useTheContext();
   return (
     <>
       <SectionOne>
@@ -72,7 +74,7 @@ const ProductsHome = ({ name, img, price, el, like, likeProduct }) => {
           <Name>{name}</Name>
           <Price>${price}</Price>
         </SectionTwo>
-        {!like ? <NoLike onClick={() => likeProduct(el)} /> : <Like />}
+        {!like ? <NoLike onClick={(e) => likeProduct(e, el)} /> : <Like />}
       </SectionOne>
     </>
   );

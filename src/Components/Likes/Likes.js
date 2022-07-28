@@ -3,6 +3,7 @@ import styled from "styled-components";
 import NavButtom from "../../Components/NavButtom/NavButtom";
 import { FcDislike } from "react-icons/fc";
 import { NavLink } from "react-router-dom";
+import { useTheContext } from "../../Context/context";
 
 const Img = styled.img`
   width: 150px;
@@ -73,27 +74,17 @@ const DisLike = styled(FcDislike)`
 `;
 
 const Likes = () => {
-  const localLikes = localStorage.getItem("Likes");
-  let productsLike;
-
-  if (!localLikes) {
-    localStorage.setItem("Likes", JSON.stringify([]));
-    productsLike = [];
-  } else {
-    productsLike = JSON.parse(localLikes);
-  }
-
-  console.log(productsLike);
+  const { likes } = useTheContext();
 
   return (
     <>
       <Favorite>Productos agregado a favoritos </Favorite>
 
-      {productsLike.length === 0 && <p>No hay Elementos en favoritos</p>}
+      {likes.length === 0 && <p>No hay Elementos en favoritos</p>}
 
       <Main>
-        {productsLike.length > 0 &&
-          productsLike.map((el) => (
+        {likes.length > 0 &&
+          likes.map((el) => (
             <SectionProducts>
               <Img alt={el.name} src={el.img} />
               <SectionNamePrice>
@@ -104,9 +95,6 @@ const Likes = () => {
             </SectionProducts>
           ))}
       </Main>
-      <NavLink to={"/"}>
-        <p>asdbnsakjdbsad</p>
-      </NavLink>
       <NavButtom />
     </>
   );
