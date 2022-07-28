@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { FcLikePlaceholder } from "react-icons/fc";
 import { FcLike } from "react-icons/fc";
-import { useTheContext } from "../../Context/context";
-import { useProducts } from "../../Hooks/useProducts";
 
 const SectionOne = styled.section`
   display: flex;
@@ -66,8 +64,6 @@ const Like = styled(FcLike)`
 `;
 
 const ProductsHome = ({ name, img, price, el, like, likeProduct }) => {
-
-
   return (
     <>
       <SectionOne>

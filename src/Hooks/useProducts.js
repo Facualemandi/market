@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
 
@@ -13,8 +13,6 @@ export const useProducts = () => {
     setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     setLoader(false);
   };
-
-
 
   useEffect(() => {
     getProducts();

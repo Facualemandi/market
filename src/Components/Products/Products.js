@@ -27,15 +27,23 @@ const Products = () => {
   const { products, loader } = useProducts();
   const [data, setData] = useState([]);
 
+  const localP = localStorage.getItem("Products");
+  const parseLocal = JSON.parse(localP);
+
   useEffect(() => {
     const getData = () => {
-      localStorage.setItem("Products", JSON.stringify(products));
+      console.log(localP);
+      if (!localP) {
+        localStorage.setItem("Products", JSON.stringify(products));
+      } else if (products.length > 0 && parseLocal.length === 0) {
+        localStorage.setItem("Products", JSON.stringify(products));
+      }
       const getProducts = localStorage.getItem("Products");
       const parseProducts = JSON.parse(getProducts);
       setData(parseProducts);
     };
     getData();
-  }, [products]);
+  }, [products, localP]);
 
   const likeProduct = (element) => {
     const indexElement = data.findIndex((el) => el.id === element.id);
