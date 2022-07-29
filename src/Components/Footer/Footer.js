@@ -6,6 +6,7 @@ const FooterContainer = styled.footer`
   width: 100vw;
   height: auto;
   background-color: #ece9e6;
+  padding-bottom: 70px;
   @media (min-width: 780px) {
     display: flex;
   }
