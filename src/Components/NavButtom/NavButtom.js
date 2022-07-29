@@ -106,6 +106,7 @@ const SectionDesktop = styled.section`
     width: 1380px;
   }
 `;
+
 const NavButtom = () => {
   const { likes } = useTheContext();
 
@@ -130,10 +131,12 @@ const NavButtom = () => {
               <BtnShop />
               <Name>Shop</Name>
             </Sections>
-            <Sections>
-              <BtnHome />
-              <Name>Home</Name>
-            </Sections>
+            <NavL to="/">
+              <Sections>
+                <BtnHome />
+                <Name>Home</Name>
+              </Sections>
+            </NavL>
           </SectionDesktop>
         </NavL>
       </SectionOne>
