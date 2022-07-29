@@ -18,6 +18,7 @@ export function ContextProvider({ children }) {
   const localP = localStorage.getItem("Products");
   const parseLocal = JSON.parse(localP);
 
+
   useEffect(() => {
     const getData = () => {
       if (!localP) {
@@ -38,6 +39,7 @@ export function ContextProvider({ children }) {
     const newObject = [...data];
     newObject[indexElement].like = true;
     setLikes([...likes, element]);
+    localStorage.setItem("Likes", JSON.stringify([...likes, element]));
     saveLike(newObject);
     const Toast = Swal.mixin({
       toast: true,
@@ -53,7 +55,7 @@ export function ContextProvider({ children }) {
 
     Toast.fire({
       icon: "success",
-      title: "Signed in successfully",
+      title: "Producto Agregado a Favoritos",
     });
   };
 
@@ -64,7 +66,7 @@ export function ContextProvider({ children }) {
   };
 
   return (
-    <getContext.Provider value={{ likeProduct, loader, data, likes }}>
+    <getContext.Provider value={{ likeProduct, loader, data, setData, likes }}>
       {children}
     </getContext.Provider>
   );

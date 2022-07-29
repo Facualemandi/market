@@ -74,26 +74,39 @@ const DisLike = styled(FcDislike)`
 `;
 
 const Likes = () => {
-  const { likes } = useTheContext();
+  const { likes, data, setData } = useTheContext();
+
+  const getLocalLikes = localStorage.getItem("Likes");
+  const parseLocalLikes = JSON.parse(getLocalLikes);
+
+  const deleteLike = (el) => {
+    const productsLocal = localStorage.getItem("Products");
+    const parseLocalProducts = JSON.parse(productsLocal);
+    const getIndex = parseLocalProducts.findIndex(
+      (element) => element.id === el.id
+    );
+    parseLocalProducts[getIndex].like = false;
+    localStorage.setItem("Products", JSON.stringify(parseLocalProducts));
+    setData(parseLocalLikes);
+  };
 
   return (
     <>
       <Favorite>Productos agregado a favoritos </Favorite>
 
-      {likes.length === 0 && <p>No hay Elementos en favoritos</p>}
+      {parseLocalLikes.length === 0 && <p>No hay Elementos en favoritos</p>}
 
       <Main>
-        {likes.length > 0 &&
-          likes.map((el) => (
-            <SectionProducts>
-              <Img alt={el.name} src={el.img} />
-              <SectionNamePrice>
-                <Name>{el.name}</Name>
-                <Price>${el.price}</Price>
-              </SectionNamePrice>
-              <DisLike />
-            </SectionProducts>
-          ))}
+        {parseLocalLikes.map((el) => (
+          <SectionProducts>
+            <Img alt={el.name} src={el.img} />
+            <SectionNamePrice>
+              <Name>{el.name}</Name>
+              <Price>${el.price}</Price>
+            </SectionNamePrice>
+            <DisLike onClick={() => deleteLike(el)} />
+          </SectionProducts>
+        ))}
       </Main>
       <NavButtom />
     </>
