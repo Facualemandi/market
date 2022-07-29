@@ -108,8 +108,6 @@ const SectionDesktop = styled.section`
 `;
 
 const NavButtom = () => {
-  const { likes } = useTheContext();
-
   const getLength = localStorage.getItem("Likes");
   const parseLength = JSON.parse(getLength);
 

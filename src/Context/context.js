@@ -18,6 +18,7 @@ export function ContextProvider({ children }) {
   const localP = localStorage.getItem("Products");
   const parseLocal = JSON.parse(localP);
 
+  
   useEffect(() => {
     const getData = () => {
       if (!localP) {

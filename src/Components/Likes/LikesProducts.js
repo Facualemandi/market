@@ -7,27 +7,6 @@ const Img = styled.img`
   height: 100px;
 `;
 
-const Main = styled.main`
-  display: grid;
-  width: 95vw;
-  margin: auto;
-  grid-template-columns: repeat(2, 1fr);
-`;
-
-const Favorite = styled.p`
-  font-family: "Montserrat", sans-serif;
-  font-size: 24px;
-  font-weight: bold;
-  margin: 10px;
-  display: flex;
-  margin: auto;
-  width: max-content;
-  background-color: #ece9e6;
-  width: 100vw;
-  justify-content: center;
-  padding: 15px;
-`;
-
 const SectionProducts = styled.section`
   margin: 10px;
   padding: 10px;

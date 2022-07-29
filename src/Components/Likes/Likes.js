@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import NavButtom from "../../Components/NavButtom/NavButtom";
-import { FcDislike } from "react-icons/fc";
-import { NavLink } from "react-router-dom";
-import { useTheContext } from "../../Context/context";
-import Swal from "sweetalert2";
 import LikesProducts from "./LikesProducts";
 import { useDeleteLikes } from "../../Hooks/useDeleteLikes";
 

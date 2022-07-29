@@ -18,6 +18,8 @@ export const useProducts = () => {
     getProducts();
   }, []);
 
+
+
   return {
     products,
     loader,
