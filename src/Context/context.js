@@ -18,7 +18,6 @@ export function ContextProvider({ children }) {
   const localP = localStorage.getItem("Products");
   const parseLocal = JSON.parse(localP);
 
-
   useEffect(() => {
     const getData = () => {
       if (!localP) {
@@ -66,7 +65,9 @@ export function ContextProvider({ children }) {
   };
 
   return (
-    <getContext.Provider value={{ likeProduct, loader, data, setData, likes }}>
+    <getContext.Provider
+      value={{ likeProduct, loader, data, setData, likes,setLikes, parseLocal }}
+    >
       {children}
     </getContext.Provider>
   );

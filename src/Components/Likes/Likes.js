@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import NavButtom from "../../Components/NavButtom/NavButtom";
 import { FcDislike } from "react-icons/fc";
 import { NavLink } from "react-router-dom";
 import { useTheContext } from "../../Context/context";
+import Swal from "sweetalert2";
+import LikesProducts from "./LikesProducts";
 
 const Img = styled.img`
   width: 150px;
@@ -74,7 +76,9 @@ const DisLike = styled(FcDislike)`
 `;
 
 const Likes = () => {
-  const { likes, data, setData } = useTheContext();
+  const { likes, setLikes, data, setData } = useTheContext();
+
+  const [productsLike, setProductsLike] = useState([]);
 
   const getLocalLikes = localStorage.getItem("Likes");
   const parseLocalLikes = JSON.parse(getLocalLikes);
@@ -88,7 +92,41 @@ const Likes = () => {
     parseLocalProducts[getIndex].like = false;
     localStorage.setItem("Products", JSON.stringify(parseLocalProducts));
     setData(parseLocalLikes);
+
+    const deleteLikes = productsLike.findIndex(
+      (element) => element.id === el.id
+    );
+
+    const newObjectLikes = [...productsLike];
+    newObjectLikes.splice(deleteLikes, 1);
+    localStorage.setItem("Likes", JSON.stringify(newObjectLikes));
+    setProductsLike([...newObjectLikes]);
+
+    const findLikes = likes.findIndex((element) => element.id === el.id);
+    likes.splice(findLikes, 1);
+    console.log(likes);
+
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer);
+        toast.addEventListener("mouseleave", Swal.resumeTimer);
+      },
+    });
+
+    Toast.fire({
+      icon: "info",
+      title: "Producto eliminado de favoritos",
+    });
   };
+
+  useEffect(() => {
+    setProductsLike(likes);
+  }, [likes]);
 
   return (
     <>
@@ -98,14 +136,14 @@ const Likes = () => {
 
       <Main>
         {parseLocalLikes.map((el) => (
-          <SectionProducts>
-            <Img alt={el.name} src={el.img} />
-            <SectionNamePrice>
-              <Name>{el.name}</Name>
-              <Price>${el.price}</Price>
-            </SectionNamePrice>
-            <DisLike onClick={() => deleteLike(el)} />
-          </SectionProducts>
+          <LikesProducts
+            key={el.id}
+            name={el.name}
+            price={el.price}
+            img={el.img}
+            deleteLike={deleteLike}
+            el={el}
+          />
         ))}
       </Main>
       <NavButtom />

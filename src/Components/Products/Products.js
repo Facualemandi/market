@@ -35,7 +35,7 @@ const Products = () => {
         <Main>
           {data.map((el) => (
             <ProductsHome
-              key={el.key}
+              key={el.id}
               name={el.name}
               price={el.price}
               img={el.img}

@@ -57,6 +57,13 @@ const AmountLikes = styled.p`
 const NavButtom = () => {
   const { likes } = useTheContext();
 
+  const getLength = localStorage.getItem("Likes");
+  const parseLength = JSON.parse(getLength);
+
+  if (localStorage.getItem("Likes") === null) {
+    localStorage.setItem("Likes", JSON.stringify([]));
+  }
+
   return (
     <>
       <SectionOne>
@@ -64,7 +71,7 @@ const NavButtom = () => {
           <Sections>
             <BtnLike />
             <p>Like</p>
-            <AmountLikes>{likes.length}</AmountLikes>
+            <AmountLikes>{parseLength.length}</AmountLikes>
           </Sections>
           <Sections>
             <BtnShop />
