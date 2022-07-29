@@ -14,6 +14,7 @@ const SectionOne = styled.section`
   width: 100vw;
   padding: 5px;
   @media (min-width: 780px) {
+    position: absolute;
     background-color: rgba(255, 255, 255, 0);
     top: 0px;
     z-index: 2000;
